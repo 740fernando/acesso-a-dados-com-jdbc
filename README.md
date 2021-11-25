@@ -11,7 +11,7 @@
 - https://docs.oracle.com/javase/8/docs/api/java/sql/package-summary.html
   <h4> Pacotes: java.sql e javax.sql (API suplementar para servidores)</h4>
   
- <h2> Preparação do primeiro projeto no Eclipse </h2>
+ <h2> Preparação do projeto no Eclipse </h2>
    Código fonte: https://github.com/acenelio/jdbc1
 <h4>Checklist:</h4>
 
