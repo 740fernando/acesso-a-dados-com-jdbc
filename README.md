@@ -24,7 +24,7 @@ o Add external JARs -> (localize o arquivo jar)
 - Criar um novo Java Project o Acrescentar a User Library MySQLConnector ao projeto
 
 - Na pasta raiz do projeto, criar um arquivo "db.properties" contendo os dados de conexão:
-                  <h5>- user=developer</h5>
+                  <h5>- user=root</h5>
                   <h5>- password=root</h5>
                   <h5> - dburl=jdbc:mysql://localhost:3306/coursejdbc</h5>
                   <h5> - useSSL=false</h5>
