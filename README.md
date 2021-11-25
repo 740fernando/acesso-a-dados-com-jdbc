@@ -7,7 +7,7 @@
 <h2>Visão geral do JDBC</h2>
 - JDBC (Java Database Connectivity): API padrão do Java para acesso a dados
 <h3>Páginas oficiais: </h3>
-- https://docs.oracle.com/javase/8/docs/technotes/guides/jdbc/
+- https://docs.oracle.com/javase/8/docs/technotes/guides/jdbc/<p>
 - https://docs.oracle.com/javase/8/docs/api/java/sql/package-summary.html
   <h4> Pacotes: java.sql e javax.sql (API suplementar para servidores)</h4>
   
