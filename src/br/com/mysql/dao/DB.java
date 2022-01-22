@@ -4,7 +4,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 public class DB {
@@ -48,6 +50,48 @@ public class DB {
 		}
 		catch(IOException e) {
 			throw new DbException(e.getMessage()); // exceão personalizada
+		}
+	}
+	public static void recuperarDados() {
+
+		Connection conn = null; // conexão
+		Statement st = null; //consulta
+		ResultSet rs = null; // recebe o resultado
+		try {
+			conn= DB.getConnection(); //conecta o banco de dados
+
+			st = conn.createStatement(); //instanciei um objeto Statement
+
+			rs = st.executeQuery("select * from department");
+
+			while(rs.next()) {
+				System.out.println(rs.getInt("id")+", "+rs.getString("Name"));
+			}
+		}catch(SQLException e) {
+			System.out.println(e);
+		}finally {
+			closeStatement(st);
+			closeResultSet(rs);
+			closeConnection();
+		}	
+	}
+	public static void closeStatement(Statement st) {
+		if(st != null) {
+			try {
+				st.close();
+			} catch(SQLException e) {
+				throw new DbException(e.getMessage());
+			}
+		}
+	}
+
+	public static void closeResultSet (ResultSet rs) {
+		if(rs != null) {
+			try {
+				rs.close();
+			} catch(SQLException e) {
+				throw new DbException(e.getMessage());
+			}
 		}
 	}
 }
