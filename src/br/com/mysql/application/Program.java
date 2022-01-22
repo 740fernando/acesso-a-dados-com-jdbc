@@ -12,7 +12,9 @@ public class Program {
 
 	public static void main(String[] args) {
 		
-		DB.recuperarDados();
+		//DB.recuperarDados();
+		
+		DB.atualizarDados();
 		
 	}	
 }
