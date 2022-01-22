@@ -14,7 +14,7 @@ public class Program {
 		
 		//DB.recuperarDados();
 		
-		DB.atualizarDados();
-		
+		//DB.atualizarDados();
+		DB.inserirDados();
 	}	
 }
