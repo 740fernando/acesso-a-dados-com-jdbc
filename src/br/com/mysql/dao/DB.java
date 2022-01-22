@@ -57,6 +57,50 @@ public class DB {
 			throw new DbException(e.getMessage()); // exceão personalizada
 		}
 	}
+public static void inserirDadosComRetornoChave() {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		PreparedStatement st = null;
+		try {
+			conn = DB.getConnection();
+		
+//			st = conn.prepareStatement(
+//										" INSERT INTO seller "
+//										+ "(Name, Email, BirthDate, BaseSalary, DepartmentId) "
+//										+" VALUES "
+//										+"(?,?,?,?,?)",
+//										Statement.RETURN_GENERATED_KEYS);
+//			
+//			st.setString(1, "Carl Purple");
+//			st.setString(2, "carl@gmail.com");
+//			st.setDate(3, new Date(sdf.parse("22/04/1985").getTime()));
+//			st.setDouble(4, 3000.0);
+//			st.setInt(5, 4);
+			
+			st= conn.prepareStatement(
+					"insert into department (Name) values ('D1'),('D2')",
+					Statement.RETURN_GENERATED_KEYS);
+			
+			int rowsAffected = st.executeUpdate();
+			int queryTimout = st.getQueryTimeout();
+			
+			if (rowsAffected > 0) {
+				rs = st.getGeneratedKeys(); // Função retorna objeto do tipo resultSet, pode ter mais valores;
+				while(rs.next()) {
+					int id = rs.getInt(1); // O valor passado no parametro é 1, porque o rs vai conter apenas um valor para ser extraído
+					System.out.println("Done! Id = "+id);
+				}				
+			}
+			
+		}catch(SQLException e) {
+			System.out.println(e);
+//		}catch(ParseException e) {
+//			System.out.println(e);	
+		}finally {
+			closeStatement(st);
+			closeConnection();
+		}
+	}
 	public static void inserirDados() {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
