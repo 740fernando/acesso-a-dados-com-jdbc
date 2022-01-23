@@ -15,6 +15,6 @@ public class Program {
 		//DB.recuperarDados();
 		
 		//DB.atualizarDados();
-		DB.inserirDadosComRetornoChave();
+		DB.deletarDados();
 	}	
 }
