@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import db.DB;
 import db.DbException;
@@ -75,6 +78,43 @@ public class SellerDaoJDBC implements SellerDao {
 			DB.closeStatement(st);
 		}
 	}
+	@Override
+	public List<Seller> finbByDepartment(Department department) {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement(
+					"SELECT seller.*,department.Name as DepName "
+					+"FROM seller INNER JOIN department "
+					+"ON seller.DepartmentId = department.Id "
+					+"WHERE DepartmentId = ? "
+					+"Order BY Name");
+			st.setInt(1, department.getId());
+			rs = st.executeQuery();
+			
+			List<Seller> seller = new ArrayList<>();
+			Map<Integer,Department> map = new HashMap<>(); // Foi criado um map vazio, onde será guardado qlq departamento instaciado 
+			
+			while(rs.next()) {
+				
+				Department dep = map.get(rs.getInt("DepartmentId")); //busca um departamento com o DepartmentId
+				
+				if(dep == null) {
+					dep = insantiateDepartment(rs); 
+					map.put(rs.getInt("DepartmentId"), dep);//guarda a chava e o dep, na proxima repeticao do while, se já existir o dep dentro do map , não será instanciado
+				}
+				
+				Seller sellerList = insantiateSeller(rs, dep);
+				seller.add(sellerList);
+			}
+			return seller;			
+		}catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	}
 
 	private Seller insantiateSeller(ResultSet rs, Department dep) throws SQLException {
 		Seller seller = new Seller();
@@ -100,5 +140,7 @@ public class SellerDaoJDBC implements SellerDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 }
