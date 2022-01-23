@@ -1,4 +1,4 @@
-package br.com.mysql.dao;
+package db;
 
 public class DbException extends RuntimeException {
 
