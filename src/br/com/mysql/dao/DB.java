@@ -207,23 +207,30 @@ public class DB {
 		try {			
 			conn = getConnection();
 			
+			conn.setAutoCommit(false);//Define para não commitar as alteraçoes automaticamente
 			
 			st = conn.createStatement();
 			
 			int rows1 = st.executeUpdate("UPDATE seller SET BaseSalary = 2090 WHERE DepartmentId = 1 ");
 			
-			int x = 1; 
-			if(x<2) {
-				throw new SQLException("Fake error");
-			}
+//			int x = 1; 
+//			if(x<2) {
+//				throw new SQLException("Fake error");
+//			}
 			
 			int rows2 = st.executeUpdate("UPDATE seller SET BaseSalary = 3090 WHERE DepartmentId = 2 ");
 
+			conn.commit();
 			
 			System.out.println("rows1 "+rows1);
 			System.out.println("rows2 "+rows2);			
 		}catch(SQLException e) {
-			e.printStackTrace();
+			try {
+				conn.rollback();
+				throw new DbException("Transaction rolled back! Caused by : "+e.getMessage());				
+			} catch (SQLException e1) {				
+				throw new DbException("Error trying to rollback! Caused by : "+e1.getMessage());
+			}
 		}finally {
 			closeConnection();
 			closeStatement(st);
