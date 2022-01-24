@@ -115,7 +115,15 @@ public class SellerDaoJDBC implements SellerDao {
 			DB.closeResultSet(rs);
 		}
 	}
-
+	private Seller insantiateSeller(ResultSet rs) throws SQLException {
+		Seller seller = new Seller();
+		seller.setId(rs.getInt("Id"));
+		seller.setName(rs.getString("Name"));
+		seller.setEmail(rs.getString("Email"));
+		seller.setBaseSalary(rs.getDouble("BaseSalary"));
+		seller.setBirthDate(rs.getDate("BirthDate"));
+		return seller;
+	}
 	private Seller insantiateSeller(ResultSet rs, Department dep) throws SQLException {
 		Seller seller = new Seller();
 		seller.setId(rs.getInt("Id"));
@@ -137,10 +145,36 @@ public class SellerDaoJDBC implements SellerDao {
 
 	@Override
 	public List<Seller> findAldd() {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		
+		try {
+			st= conn.prepareStatement(
+					"SELECT seller.*  "
+					+"FROM seller "
+					+"Order BY Name");
+			rs = st.executeQuery();
+			
+			
+			List<Seller> seller = new ArrayList<>();
+			
+			while(rs.next()) {						
+							
+				Seller sellerList = insantiateSeller(rs);
+				seller.add(sellerList);
+			}
+			return seller;
+		}catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
 	}
+}
+	
+			
+			
+					
 
 	
-
-}

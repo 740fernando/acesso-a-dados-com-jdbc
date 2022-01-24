@@ -13,6 +13,7 @@ public class Program {
 	public static void main(String[] args) {
 			
 		SellerDao sellerDao = DaoFactory.createSellerDao();
+		SellerDao sellerListfindAlddDao = DaoFactory.createSellerDao();
 		System.out.println("============= Teste 1 : seller findById =============");
 			
 		Seller seller = sellerDao.findById(3);		
@@ -25,5 +26,10 @@ public class Program {
 		
 		sellerList.forEach(list -> System.out.println(list.toString()));
 		
+		System.out.println("============= Teste 3 : seller findAldd() =============");
+		
+		List<Seller> sellerListfindAldd = sellerListfindAlddDao.findAldd();
+
+		sellerListfindAldd.forEach(e -> System.out.println(e.toString()));
 	}		
 }
