@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 import model.dao.DaoFactory;
 import model.dao.SellerDao;
@@ -49,5 +50,13 @@ public class Program {
 		sellerUpdate.setName("Lauren");
 		sellerUpdate.setBirthDate(sdf.parse("16/06/2017"));
 		sellerDao.update(sellerUpdate);
+		
+		System.out.println("============= Teste 6 : seller delete() =============");
+		Scanner sc = new Scanner(System.in);
+		System.out.println("\nDigite um id para exclusão : ");
+		int id = sc.nextInt();
+		sellerDao.deleteById(id);
+		System.out.println("Delete completed");
+		
 	}		
 }
