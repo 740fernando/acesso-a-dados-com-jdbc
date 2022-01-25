@@ -31,5 +31,10 @@ public class Program {
 		List<Seller> sellerListfindAldd = sellerListfindAlddDao.findAldd();
 
 		sellerListfindAldd.forEach(e -> System.out.println(e.toString()));
+		
+		System.out.println("============= Teste 4 : seller insert() =============");
+		Seller sellerInsert = new Seller(null, "Fernando", "fernando@teste.com", new Date(), 5000.0,new Department(1,null));
+		sellerDao.insert(sellerInsert);
+		System.out.println("Inserted! New id = "+sellerInsert.getId());
 	}		
 }
