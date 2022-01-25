@@ -66,8 +66,8 @@ public class SellerDaoJDBC implements SellerDao {
 			// Se minha consulta não retornou nenhum registro, meu rs vai dar falso, pular o if
 			// e vai retorna null
 			if(rs.next()) {
-				Department dep = insantiateDepartment(rs);			
-				Seller seller = insantiateSeller(rs,dep);				
+				Department dep = instantiateDepartment(rs);			
+				Seller seller = instantiateSeller(rs,dep);				
 				return seller;
 			}
 			return null;
@@ -100,11 +100,11 @@ public class SellerDaoJDBC implements SellerDao {
 				Department dep = map.get(rs.getInt("DepartmentId")); //busca um departamento com o DepartmentId
 				
 				if(dep == null) {
-					dep = insantiateDepartment(rs); 
+					dep = instantiateDepartment(rs); 
 					map.put(rs.getInt("DepartmentId"), dep);//guarda a chava e o dep, na proxima repeticao do while, se já existir o dep dentro do map , não será instanciado
 				}
 				
-				Seller sellerList = insantiateSeller(rs, dep);
+				Seller sellerList = instantiateSeller(rs, dep);
 				seller.add(sellerList);
 			}
 			return seller;			
@@ -115,16 +115,7 @@ public class SellerDaoJDBC implements SellerDao {
 			DB.closeResultSet(rs);
 		}
 	}
-	private Seller insantiateSeller(ResultSet rs) throws SQLException {
-		Seller seller = new Seller();
-		seller.setId(rs.getInt("Id"));
-		seller.setName(rs.getString("Name"));
-		seller.setEmail(rs.getString("Email"));
-		seller.setBaseSalary(rs.getDouble("BaseSalary"));
-		seller.setBirthDate(rs.getDate("BirthDate"));
-		return seller;
-	}
-	private Seller insantiateSeller(ResultSet rs, Department dep) throws SQLException {
+	private Seller instantiateSeller(ResultSet rs, Department dep) throws SQLException {
 		Seller seller = new Seller();
 		seller.setId(rs.getInt("Id"));
 		seller.setName(rs.getString("Name"));
@@ -135,7 +126,7 @@ public class SellerDaoJDBC implements SellerDao {
 		return seller;
 	}
 
-	private Department insantiateDepartment(ResultSet rs) throws SQLException {
+	private Department instantiateDepartment(ResultSet rs) throws SQLException {
 		
 		Department dep =new Department();
 		dep.setId(rs.getInt("DepartmentId"));
@@ -150,20 +141,30 @@ public class SellerDaoJDBC implements SellerDao {
 		
 		try {
 			st= conn.prepareStatement(
-					"SELECT seller.*  "
-					+"FROM seller "
-					+"Order BY Name");
+					"SELECT seller.*,department.Name as DepName "
+					+"FROM seller INNER JOIN department "
+					+"ON seller.DepartmentId = department.Id "
+					+"ORDER BY Name");
+			
 			rs = st.executeQuery();
 			
-			
-			List<Seller> seller = new ArrayList<>();
+			List<Seller> sellerList = new ArrayList<>();
+			Map<Integer, Department> map = new HashMap<>();
 			
 			while(rs.next()) {						
-							
-				Seller sellerList = insantiateSeller(rs);
-				seller.add(sellerList);
+				
+				Department dep = map.get(rs.getInt("DepartmentId"));
+				
+				if(dep == null) {
+					dep = instantiateDepartment(rs);
+					map.put(rs.getInt("DepartmentId"), dep);
+				}
+				
+				Seller seller= instantiateSeller(rs, dep);
+				
+				sellerList.add(seller);
 			}
-			return seller;
+			return sellerList;
 		}catch(SQLException e) {
 			throw new DbException(e.getMessage());
 		}finally {
