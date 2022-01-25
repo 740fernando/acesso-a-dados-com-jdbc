@@ -17,5 +17,12 @@ public class Program2 {
 		depDao.insert(dep);
 		System.out.println("Inserido novo dep id : "+dep.getId()+" nome : "+dep.getName());
 		
+		System.out.println("============= Teste 1 : Department update() =============");
+		Department depUpdate = new Department();
+		DepartmentDao depDaoUpdate = DaoFactory.createDepartmentDao();
+		
+		depDaoUpdate.update(obj);
+
+
 	}
 }
