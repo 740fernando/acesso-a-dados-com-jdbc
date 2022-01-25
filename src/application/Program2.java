@@ -17,11 +17,19 @@ public class Program2 {
 		depDao.insert(dep);
 		System.out.println("Inserido novo dep id : "+dep.getId()+" nome : "+dep.getName());
 		
-		System.out.println("============= Teste 1 : Department update() =============");
+		System.out.println("============= Teste 2 : Department finbyId() =============");
+		Department depFinById= new Department();
+		DepartmentDao depDaoFinById = DaoFactory.createDepartmentDao();
+		
+		depFinById = depDaoFinById.findById(3);
+		
+		System.out.println(depFinById.getId()+" "+depFinById.getName());
+
+		System.out.println("============= Teste 3 : Department update() =============");
 		Department depUpdate = new Department();
 		DepartmentDao depDaoUpdate = DaoFactory.createDepartmentDao();
-		
-		depDaoUpdate.update(obj);
+		depFinById.setName("Data Science");
+		depDaoUpdate.update(depFinById);
 
 
 	}
