@@ -5,17 +5,17 @@ import java.io.Serializable;
 public class Department implements Serializable {
 
 	/**
-	 * implements Serializable - Permite que os objetos possam ser transformados em sequencia de byte.
-	 * Na linguagem Java, é necessário implements Serializable para que nosso objeto seja gravado em
-	 * arquivo, redes e etc
+	 * implements Serializable - Permite que os objetos possam ser transformados em
+	 * sequencia de byte. Na linguagem Java, é necessário implements Serializable
+	 * para que nosso objeto seja gravado em arquivo, redes e etc
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private Integer id;
 	private String name;
-	
+
 	public Department() {
-		
+
 	}
 
 	public Department(Integer id, String name) {
@@ -46,7 +46,9 @@ public class Department implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-	//Método criado para que os objetos sejam comparados pelo conteúdo e não pela refêrencia de ponteiros
+
+	// Método criado para que os objetos sejam comparados pelo conteúdo e não pela
+	// refêrencia de ponteiros
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
