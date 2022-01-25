@@ -24,10 +24,10 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 	public void insert(Department department) {
 		
 		PreparedStatement st = null;
-
+		StringBuilder query = new StringBuilder();
+		
 		try {
 
-			StringBuilder query = new StringBuilder();
 			query.append("INSERT INTO department ");
 			query.append("(Name) ");
 			query.append("VALUES ");
@@ -58,9 +58,24 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 
 
 	@Override
-	public void update(Department obj) {
-		// TODO Auto-generated method stub
-
+	public void update(Department department) {
+		
+		PreparedStatement st = null;
+		StringBuilder query = new StringBuilder();
+		
+		try {
+			
+			query.append("UPDATE department SET ");
+			query.append("(Name = ?)");
+			query.append("WHERE Id = ?");
+			
+			st = conn.prepareStatement(query.toString());
+		
+		}catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}finally {
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override
