@@ -98,10 +98,10 @@ public class SellerDaoJDBC implements SellerDao {
 	public void deleteById(Integer id) {
 		
 		PreparedStatement st = null ; 
-		
+		StringBuilder query = new StringBuilder();
+
 		try {
 			
-			StringBuilder query = new StringBuilder();
 			query.append("DELETE FROM seller ");
 			query.append("WHERE Id=?");
 			

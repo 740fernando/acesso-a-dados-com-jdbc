@@ -31,6 +31,14 @@ public class Program2 {
 		depFinById.setName("Data Science");
 		depDaoUpdate.update(depFinById);
 
+		System.out.println("============= Teste 4 : Department deleteById() =============");
+
+		DepartmentDao depDaoDeleteById = DaoFactory.createDepartmentDao();
+		depDaoDeleteById.deleteById(16);
+		depDaoDeleteById.deleteById(17);
+		depDaoDeleteById.deleteById(18);
+		depDaoDeleteById.deleteById(19);
+
 
 	}
 }
