@@ -51,7 +51,7 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 	}
 
 	@Override
-	public List<Department> findAldd() {
+	public List<Department> findAll() {
 
 		PreparedStatement st = null;
 		ResultSet rs = null;
@@ -162,7 +162,7 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 			int rowsAffected = st.executeUpdate();
 
 			if (rowsAffected == 0) {
-				throw new DbException("Não foi encontrado o ID");
+				throw new DbException("NÃ£o foi encontrado o ID");
 			}
 		} catch (SQLException e) {
 			throw new DbException(e.getMessage());
