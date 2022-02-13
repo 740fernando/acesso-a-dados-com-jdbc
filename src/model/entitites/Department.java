@@ -1,4 +1,4 @@
-package model.entitites;
+package model.entities;
 
 import java.io.Serializable;
 
@@ -6,7 +6,7 @@ public class Department implements Serializable {
 
 	/**
 	 * implements Serializable - Permite que os objetos possam ser transformados em
-	 * sequencia de byte. Na linguagem Java, é necessário implements Serializable
+	 * sequencia de byte. Na linguagem Java, Ã© necessÃ¡rio implements Serializable
 	 * para que nosso objeto seja gravado em arquivo, redes e etc
 	 */
 	private static final long serialVersionUID = 1L;
@@ -47,8 +47,8 @@ public class Department implements Serializable {
 		return result;
 	}
 
-	// Método criado para que os objetos sejam comparados pelo conteúdo e não pela
-	// refêrencia de ponteiros
+	// MÃ©todo criado para que os objetos sejam comparados pelo conteÃºdo e nÃ£o pela
+	// refÃªrencia de ponteiros
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
