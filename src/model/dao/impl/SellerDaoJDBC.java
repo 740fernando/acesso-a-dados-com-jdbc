@@ -110,7 +110,7 @@ public class SellerDaoJDBC implements SellerDao {
 			int rowsAffected = st.executeUpdate();
 
 			if (rowsAffected == 0) {
-				throw new DbException("N„o foi encontrado o id");
+				throw new DbException("N√£o foi encontrado o id");
 			}
 
 		} catch (SQLException e) {
@@ -137,11 +137,11 @@ public class SellerDaoJDBC implements SellerDao {
 					"SELECT seller.*,department.Name as DepName" + " From seller INNER JOIN department"
 							+ " ON seller.DepartmentId = department.Id" + " Where seller.Id = ?");
 			st.setInt(1, id);
-			rs = st.executeQuery();// recebe o resultado da operaÁ„o executeQuery()
+			rs = st.executeQuery();// recebe o resultado da opera√ß√£o executeQuery()
 
-			// O rs aponta para pos. 0 ( null), sÛ na pos. 1 que È armazenado os dados
-			// … chamado a operaÁ„o next para verificar se h· dados na posiÁ„o 1.
-			// Se minha consulta n„o retornou nenhum registro, meu rs vai dar falso, pular o
+			// O rs aponta para pos. 0 ( null), s√≥ na pos. 1 que √© armazenado os dados
+			// √â chamado a opera√ß√£o next para verificar se h√° dados na posi√ß√£o 1.
+			// Se minha consulta n√£o retornou nenhum registro, meu rs vai dar falso, pular o
 			// if
 			// e vai retorna null
 			if (rs.next()) {
@@ -170,7 +170,7 @@ public class SellerDaoJDBC implements SellerDao {
 			rs = st.executeQuery();
 
 			List<Seller> seller = new ArrayList<>();
-			Map<Integer, Department> map = new HashMap<>(); // Foi criado um map vazio, onde ser· guardado qlq
+			Map<Integer, Department> map = new HashMap<>(); // Foi criado um map vazio, onde ser√° guardado qlq
 															// departamento instaciado
 
 			while (rs.next()) {
@@ -180,7 +180,7 @@ public class SellerDaoJDBC implements SellerDao {
 				if (dep == null) {
 					dep = instantiateDepartment(rs);
 					map.put(rs.getInt("DepartmentId"), dep);// guarda a chava e o dep, na proxima repeticao do while, se
-															// j· existir o dep dentro do map , n„o ser· instanciado
+															// j√° existir o dep dentro do map , n√£o ser√° instanciado
 				}
 
 				Seller sellerList = instantiateSeller(rs, dep);
@@ -215,7 +215,7 @@ public class SellerDaoJDBC implements SellerDao {
 	}
 
 	@Override
-	public List<Seller> findAldd() {
+	public List<Seller> findAll() {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 
